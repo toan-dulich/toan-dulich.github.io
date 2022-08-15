@@ -4113,6 +4113,14 @@ const answer4 = document.getElementById("answer4");
 const questionNumber = document.getElementById("questionNumber");
 const question = document.getElementById("question");
 
+var wrong = new Audio();
+wrong.src="./sound/false.mp3"
+var right = new Audio();
+right.src="./sound/true.mp3"
+var music=new Audio()
+music.src='./sound/music.mp3'
+music.autoplay = true;
+music.loop = true;
 let quizData;
 const result = 1;
 let score = 0;
@@ -4168,6 +4176,7 @@ function onTimesOut() {
 function checkTime() {
   timerCheck = setInterval(() => {
     timeOut = localStorage.getItem("timeOut");
+    music.play()
     console.log("time out:", timeOut);
     if (timeOut == "true") {
       console.log("het gio");
@@ -4180,6 +4189,7 @@ function handleCheck(val, pick) {
   console.log("nhan vat la:", character);
   if (val == quizData[curentQuiz].answer) {
     normalCharacter.src = funAvatar;
+    right.play()
     pick.style.backgroundColor = "#45D6A1";
     if (character == "bear" || character == "bear2") {
       normalCharacter.style.height = "34.5vw";
@@ -4192,6 +4202,7 @@ function handleCheck(val, pick) {
     }
     score++;
   } else {
+    wrong.play()
     normalCharacter.src = shockAvatar;
     normalCharacter.style.width = "23.25vw";
     normalCharacter.style.left = "81.37vw";
@@ -4221,6 +4232,7 @@ function loadQuiz() {
   normalCharacter.style.width = "20.5vw";
   normalCharacter.style.height = "29.25vw";
   normalCharacter.style.left = "84.37vw";
+  
   enablePick();
 }
 function cancelPick() {
